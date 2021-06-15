@@ -37,8 +37,7 @@ class Db {
 
     public function andWhere($value)
     {
-        $this->wheres[] = $value;
-        return $this;
+        return $this->where($value);
     }
 }
 

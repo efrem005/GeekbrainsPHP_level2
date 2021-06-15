@@ -49,12 +49,12 @@ class Product {
     public function getProduct()
     {
         echo "
-        <b>Код товара:</b> {$this->article}<br>
+        <hr><b>Код товара:</b> {$this->article}<br>
         <b>Наименование:</b> {$this->name}<br>
         <b>Описание товара:</b> {$this->description}<br>
         <b>Вес:</b> {$this->weight} г.<br>
         <b>Цена:</b> {$this->price} Руб.<br>
-        <b>Остаток:</b> {$this->count} шт.<br><hr>
+        <b>Остаток:</b> {$this->count} шт.<br>
         ";
     }
 }
@@ -94,19 +94,14 @@ class Phone extends Product {
 
     public function getProduct()
     {
+        parent::getProduct();
         echo "
-        <b>Код товара:</b> {$this->article}<br>
-        <b>Наименование:</b> {$this->name}<br>
-        <b>Описание товара:</b> {$this->description}<br>
         <b>Цвет:</b> {$this->color}<br>
         <b>Дисплей:</b> {$this->display}<br>
         <b>Операционная система:</b> {$this->system}<br>
         <b>Процессор:</b> {$this->processor}<br>
         <b>Объем оперативной памяти:</b> {$this->ram} гб<br>
-        <b>Объем встроенной памяти:</b> {$this->rom} гб<br>
-        <b>Вес:</b> {$this->weight} г<br>
-        <b>Цена:</b> {$this->price} Руб.<br>
-        <b>Остаток:</b> {$this->count} шт.<br><hr>
+        <b>Объем встроенной памяти:</b> {$this->rom} гб<br><hr>
         ";
     }
 }
@@ -143,18 +138,13 @@ class Vacuum extends Product {
 
     public function getProduct()
     {
+        parent::getProduct();
         echo "
-        <b>Код товара:</b> {$this->article}<br>
-        <b>Наименование:</b> {$this->name}<br>
-        <b>Описание товара:</b> {$this->description}<br>
         <b>Тип уборки:</b> {$this->cleaning}<br>
         <b>Аквафильтр:</b> {$this->aquafilter}<br>
         <b>Щетка:</b> {$this->brushes}<br>
         <b>Мощность:</b> {$this->power} Ватт<br>
-        <b>Уровень шума:</b> {$this->noise} дб<br>
-        <b>Вес:</b> {$this->weight} г<br>
-        <b>Цена:</b> {$this->price} Руб.<br>
-        <b>Остаток:</b> {$this->count} шт.<br><hr>
+        <b>Уровень шума:</b> {$this->noise} дб<br><hr>
         ";
     }
 }
