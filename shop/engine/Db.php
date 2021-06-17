@@ -3,41 +3,79 @@
 namespace app\engine;
 
 use app\interfaces\IDb;
+use app\traits\TSinletone;
+use \PDO;
 
 class Db implements IDb
 {
-    public $db = null;
+    private $config = [
+        'driver' => 'mysql',
+        'host' => 'localhost',
+        'db' => 'shopphp',
+        'charset' => 'UTF8',
+        'username' => 'root',
+        'password' => 'root',
+    ];
 
-    public function getDb()
+    protected $db = null;
+
+    use TSinletone;
+
+    protected function getDb()
     {
-        static $db = null;
-        if (is_null($db)) {
-            $db = new \PDO('mysql:host=localhost:3306;dbname=shop', 'root', 'root');
+        if (is_null($this->db)) {
+            $this->db = new PDO($this->getDbConfig(),
+                $this->config['username'],
+                $this->config['password']
+            );
+            $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
         return $this->db;
     }
 
-    public function executeQuery($sql)
+    protected function getDbConfig()
     {
-//        @mysqli_query($this->getDb(), $sql) or die(mysqli_error(getDb()));
-//        return mysqli_affected_rows($this->getDb()) == 0 ?false:true;
-
-        return "{$sql} <br>";
+        return sprintf('%s:host=%s;dbname=%s;charset=%s',
+            $this->config['driver'],
+            $this->config['host'],
+            $this->config['db'],
+            $this->config['charset']
+        );
     }
 
-    public function getAssocResult($sql)
+
+    protected function query($sql, $params)
     {
-//        $db = $this->getDb();
-//        $result = @mysqli_query($db, $sql) or die(mysqli_error($db));
-//
-//        $array_result = [];
-//        while ($row = mysqli_fetch_assoc($result))
-//            $array_result[] = $row;
-//        return $array_result;
-        return "{$sql} <br>";
+        $sql = $this->getDb()->prepare($sql);
+        $sql->execute($params);
+
+        return $sql;
     }
 
-    public function closeDb() {
-        mysqli_close($this->getDb());
+    public function lastInsertId()
+    {
+        return $this->getDb()->lastInsertId();
+    }
+
+    public function queryObject($sql, $params, $class)
+    {
+        $sql = $this->query($sql, $params);
+        $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
+        return $sql->fetch();
+    }
+
+    public function executeQuery($sql, $params)
+    {
+        return $this->query($sql, $params)->fetch();
+    }
+
+    public function getAssocResult($sql, $params)
+    {
+        return $this->query($sql, $params)->fetchAll();
+    }
+
+    public function execute($sql, $params)
+    {
+        return $this->query($sql, $params)->rowCount();
     }
 }

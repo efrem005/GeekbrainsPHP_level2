@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-class Users
+
+class Users extends Model
 {
     public $id;
     public $login;

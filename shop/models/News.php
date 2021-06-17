@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class News
+class News extends Model
 {
     public $id;
     public $title;

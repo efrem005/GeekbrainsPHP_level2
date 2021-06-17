@@ -19,21 +19,21 @@ class Vacuum extends Product
         $price = 0,
         $weight = 0,
         $count = 0,
+        $units = '',
+        $category_id = 0,
         $cleaning = 'не указан',
         $aquafilter = 'не указан',
         $brushes = 'не указан',
         $power = 0,
-        $noise = 0,
-        $db = null
+        $noise = 0
     )
     {
-        parent::__construct($id, $title, $article, $description, $price, $weight, $count, $db);
+        parent::__construct($title, $article, $description, $price, $weight, $count, $units, $category_id);
         $this->cleaning = $cleaning;
         $this->aquafilter = $aquafilter;
         $this->brushes = $brushes;
         $this->power = $power;
         $this->noise = $noise;
-        $this->db = $db;
     }
 
     public function getProduct()

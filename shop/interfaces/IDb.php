@@ -5,9 +5,9 @@ namespace app\interfaces;
 
 interface IDb
 {
-//    public function __construct(Db $db);
-//    public function getDb();
-    public function executeQuery($sql);
-    public function getAssocResult($sql);
-    public function closeDb();
+    public function lastInsertId();
+    public function queryObject($sql, $params, $class);
+    public function executeQuery($sql, $params);
+    public function getAssocResult($sql, $params);
+    public function execute($sql, $params);
 }

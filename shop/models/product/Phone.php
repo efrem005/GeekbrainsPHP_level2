@@ -20,23 +20,23 @@ class Phone extends Product
         $price = 0,
         $weight = 0,
         $count = 0,
+        $units = '',
+        $category_id = 0,
         $color = null,
         $system = 'не указан',
         $processor = 'не указан',
         $display = 'не указан',
         $ram = 0,
-        $rom = 0,
-        $db = null
+        $rom = 0
     )
     {
-        parent::__construct($id, $title, $article, $description, $price, $weight, $count, $db);
+        parent::__construct($title, $article, $description, $price, $weight, $count, $units, $category_id);
         $this->color = $color;
         $this->system = $system;
         $this->processor = $processor;
         $this->display = $display;
         $this->ram = $ram;
         $this->rom = $rom;
-        $this->db = $db;
     }
 
     public function getProduct()

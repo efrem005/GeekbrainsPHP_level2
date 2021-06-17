@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 15 2021 г., 23:04
+-- Время создания: Июн 17 2021 г., 13:47
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -178,12 +178,12 @@ INSERT INTO `photo` (`id`, `title`, `href`, `size`, `view`, `created_at`) VALUES
 
 CREATE TABLE `product` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `article` bigint UNSIGNED NOT NULL DEFAULT '0',
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `price` bigint DEFAULT NULL,
+  `price` bigint NOT NULL,
   `weight` varchar(20) NOT NULL DEFAULT '0',
-  `count` bigint DEFAULT NULL,
+  `count` bigint NOT NULL,
   `units` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `category_id` bigint UNSIGNED NOT NULL DEFAULT '6',
   `json_product` json DEFAULT NULL,
@@ -205,7 +205,8 @@ INSERT INTO `product` (`id`, `title`, `article`, `description`, `price`, `weight
 (7, 'Апельсины', 0, 'Апельсины – это цитрусовые круглой формы, диаметром 5-10 сантиметров. Они имеют бугристую оранжевую кожуру, мясистую мякоть оранжевого цвета и косточки. Вкус зависит от сорта и меняется от сладкого до горького.', 68, '0', 0, 'кг', 6, NULL, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ap.jpg', '2021-06-09 23:52:29'),
 (8, 'Бананы', 0, 'Бананы – это экзотические плоды эллиптической формы с кремообразной мякотью, покрытой плотной несъедобной кожурой. Банановое дерево может вырастать от 3 до 6 м в высоту. Плоды формируются группами по 50—150 штук, которые объединяются в кластеры по 10—25 штук.', 73, '0', 18, 'кг', 6, NULL, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ban.jpg', '2021-06-09 19:31:15'),
 (9, 'Виноград белый', 0, 'Несмотря на название, под белым виноградом подразумеваются сорта, дающие урожай белых, зеленых и желтых плодов. Желтая и зеленая разновидности относятся к белому винограду, считаясь его подвидами. Белый виноград может быть разделен на две большие группы – столовую и техническую. Первая группа пригодна для употребления в пищу в свежем виде, вторая предназначается для переработки с целью приготовления вин и других продуктов. Существуют универсальные сорта, да и большинство столовых сортов вполне может выступить в роли сырья. В свою очередь, ягоды технических сортов в своей основной массе могут употребляться в пищу свежими. Однако специалисты предпочитают разделять эти две группы.', 102, '0', 8, 'кг', 6, NULL, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/vin.jpg', '2021-06-09 19:31:15'),
-(10, 'Виноград Red Glode', 0, 'Один из наиболее выращиваемых по всему миру сортов винограда Ред Глоб высоко оценен и селекционерами, и обычными покупателями. Эффектный вид гроздей, приятное освежающее сочетание сладости и кислоты в ягодах, узнаваемый оттенок кожицы — все это делает его привлекательным для выращивания. А также виноград встречается под названиями Красный Глобус, Красная Земля, Глобо Ройо, Роуз ЛТО. В России сорт выращивается в южных регионах, поскольку он очень теплолюбив. В США культивируется в климатической зоне Калифорнии и других южных штатов. Распространен в Китае и Японии, в Латинской Америке.', 96, '0', 33, 'кг', 6, NULL, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/rg.jpg', '2021-06-09 22:02:31');
+(10, 'Виноград Red Glode', 0, 'Один из наиболее выращиваемых по всему миру сортов винограда Ред Глоб высоко оценен и селекционерами, и обычными покупателями. Эффектный вид гроздей, приятное освежающее сочетание сладости и кислоты в ягодах, узнаваемый оттенок кожицы — все это делает его привлекательным для выращивания. А также виноград встречается под названиями Красный Глобус, Красная Земля, Глобо Ройо, Роуз ЛТО. В России сорт выращивается в южных регионах, поскольку он очень теплолюбив. В США культивируется в климатической зоне Калифорнии и других южных штатов. Распространен в Китае и Японии, в Латинской Америке.', 96, '0', 33, 'кг', 6, NULL, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/rg.jpg', '2021-06-09 22:02:31'),
+(11, 'APPLE iPhone SE 2020', 1429464, 'Классический компактный дизайн, мощный процессор A13 Bionic и масса других достоинств.', 36690, '148', 3, 'шт', 1, NULL, NULL, '2021-06-17 01:06:07');
 
 -- --------------------------------------------------------
 
@@ -255,7 +256,8 @@ INSERT INTO `users` (`id`, `login`, `pass`, `hash`, `role`, `fast_name`) VALUES
 (1, 'mr.Bin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', '', 0, 'Bin'),
 (2, 'Admin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', '111546843160c2544f0dbf86.48878003', 1, 'Admin'),
 (3, 'efrem', '$2y$10$86saABnS0YxGtRpcgAvs9uqHXo.jknTt9d/JfS/SF8PhDwBT0zxKO', NULL, 0, 'Николай'),
-(4, 'strela_24', '$2y$10$olmdywJomCpVUBu8NnFAGOd4PTjvxWM9QL3RZ/vjny5RIwjd3kvGG', '195716863160c26488bddfa4.50638803', 0, 'Анастасия');
+(4, 'strela_24', '$2y$10$olmdywJomCpVUBu8NnFAGOd4PTjvxWM9QL3RZ/vjny5RIwjd3kvGG', '195716863160c26488bddfa4.50638803', 0, 'Анастасия'),
+(5, 'efrem_nn', 'asdfghjkl', 'fgnnteyntgbgrbrt75467567', 1, 'Николай');
 
 --
 -- Индексы сохранённых таблиц
@@ -362,7 +364,7 @@ ALTER TABLE `photo`
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `reviews`
@@ -374,7 +376,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
