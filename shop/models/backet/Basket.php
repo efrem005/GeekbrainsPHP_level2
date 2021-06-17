@@ -2,8 +2,10 @@
 
 namespace app\models\backet;
 
+use app\models\Model;
 
-class Basket
+
+class Basket extends Model
 {
     public $id;
     public $user_id;
@@ -12,22 +14,17 @@ class Basket
     public $price;
     public $session_id;
 
-    protected $db;
-
-    public function __construct($title, $count, $price, $session_id, $db = null)
+    public function __construct(
+        $title = '',
+        $count = 0,
+        $price = 0,
+        $session_id = ''
+    )
     {
         $this->title = $title;
         $this->count = $count;
         $this->price = $price;
         $this->session_id = $session_id;
-        $this->db = $db;
-    }
-
-    function getBasket()
-    {
-        $sql = "SELECT * FROM basket WHERE user_id = {$this->user_id}";
-
-        echo $this->db->executeQuery($sql) . '<br>';
     }
 
     function getSumAll()

@@ -2,6 +2,7 @@
 
 namespace app\models\product;
 
+use app\models\Model;
 
 class Product extends Model
 {
@@ -12,26 +13,28 @@ class Product extends Model
     public $price; // Цена
     public $weight; // Вес
     public $count; // Остаток на складе
+    public $units; // шт\кг\г
+    public $category_id; // id категории
 
     public function __construct(
-        $id = 0,
         $title = 'Без названия',
         $article = 0,
         $description = 'Без описания',
         $price = 0,
         $weight = 0,
         $count = 0,
-        $db = null
+        $units = '',
+        $category_id = 0
     )
     {
-        $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->price = $price;
         $this->article = $article;
         $this->weight = $weight;
         $this->count = $count;
-        $this->db = $db;
+        $this->units = $units;
+        $this->category_id = $category_id;
     }
 
 // Изменение цены
@@ -62,7 +65,7 @@ class Product extends Model
         <b>Описание товара:</b> {$this->description}<br>
         <b>Вес:</b> {$this->weight} г.<br>
         <b>Цена:</b> {$this->price} Руб.<br>
-        <b>Остаток:</b> {$this->count} шт.<br>
+        <b>Остаток:</b> {$this->count} {$this->units}<br>
         ";
     }
 }

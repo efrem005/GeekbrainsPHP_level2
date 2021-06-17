@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Reviews
+class Reviews extends Model
 {
     public  $id;
     public  $user_id;
