@@ -2,6 +2,7 @@
 
 namespace app\models\backet;
 
+use app\engine\Db;
 use app\models\Model;
 
 
@@ -15,32 +16,33 @@ class Basket extends Model
     public $session_id;
 
     public function __construct(
-        $title = '',
-        $count = 0,
-        $price = 0,
-        $session_id = ''
+        $user_id = null,
+        $title = null,
+        $count = null,
+        $price = null,
+        $session_id = null
     )
     {
+        $this->user_id = $user_id;
         $this->title = $title;
         $this->count = $count;
         $this->price = $price;
         $this->session_id = $session_id;
     }
 
+    protected static function getTableName(): string
+    {
+        return 'basket';
+    }
+
+    public static function getBasket()
+    {
+        $sql = "SELECT b.id as `id`, b.count as `count`, `title`, b.price as `price`, p.units as units, product_id FROM basket b JOIN product p on p.id = b.product_id";
+        return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
+    }
+
     function getSumAll()
     {
         echo "<hr>Всего: " . $this->count * $this->price . " Руб.<br><hr>";
     }
-
-    public function getProduct()
-    {
-        echo "
-        <hr><b>Корзина</b><br>
-        <b>Наименование:</b> {$this->title}<br>
-        <b>Количество:</b> {$this->count} шт.<br>
-        <b>Цена:</b> {$this->price} Руб.<br><hr>
-        ";
-    }
-
-
 }
