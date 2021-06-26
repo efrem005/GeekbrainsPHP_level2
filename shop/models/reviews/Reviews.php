@@ -6,10 +6,16 @@ use app\models\Model;
 
 class Reviews extends Model
 {
-    public $id;
-    public $user;
-    public $text;
-    public $product_id;
+    protected $id;
+    protected $user;
+    protected $text;
+    protected $product_id;
+
+    public $props = [
+        'user' => false,
+        'text' => false,
+        'product_id' => false
+    ];
 
     public function __construct(
         $user = null,

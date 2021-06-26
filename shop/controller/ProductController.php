@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use app\models\backet\Basket;
 use app\models\reviews\Reviews;
 use app\models\product\{Product};
 
@@ -18,7 +19,9 @@ class ProductController extends Controller
         $catalog = Product::getProductPage($this->page, $this->offSet);
         echo $this->render('catalog', [
             'catalog' => $catalog,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'offSet' => 4,
+            'count' => $count
         ]);
     }
 
@@ -30,7 +33,23 @@ class ProductController extends Controller
         $catalog = Product::getProductPage($this->page, $this->offSet);
         echo $this->render('catalog', [
             'catalog' => $catalog,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'offSet' => 4,
+            'count' => $count
+        ]);
+    }
+
+    public function actionLimit()
+    {
+        $offset = $_GET['offset'] + 4;
+        $count = sizeof(Product::getAll());
+        $pagination = ceil($count/$this->offSet);
+        $catalog = Product::getProductLimit($offset);
+        echo $this->render('catalog', [
+            'catalog' => $catalog,
+            'pagination' => $pagination,
+            'offSet' => $offset,
+            'count' => $count
         ]);
     }
 
@@ -60,7 +79,17 @@ class ProductController extends Controller
         $card->count = (int)$_POST['count'];
         $card->description = $_POST['description'];
         $card->save();
-        header("Location: ?c=product&a=card&id={$id}");
+        header("Location: /product/card/?id={$id}");
+        die();
+    }
+
+    public function actionBuy()
+    {
+        $id = $_GET['id'];
+        $product = Product::getOne($id);
+        $backet = new Basket(2, (int)$id, 1, (int)$product->price, session_id());
+        $backet->save();
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
         die();
     }
 }

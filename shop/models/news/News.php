@@ -5,11 +5,18 @@ use app\models\Model;
 
 class News extends Model
 {
-    public $id;
-    public $title;
-    public $text;
-    public $category_id;
-    public $view;
+    protected $id;
+    protected $title;
+    protected $text;
+    protected $category_id;
+    protected $view;
+
+    public $props = [
+        'title' => false,
+        'text' => false,
+        'category_id' => false,
+        'view' => false
+    ];
 
     public function __construct(
         $title = null,

@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">PHP_2</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -13,20 +15,25 @@
                     <a class="nav-link" href="/product">Каталог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reviews" >Отзывы</a>
+                    <a class="nav-link" href="/reviews">Отзывы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/basket" >Корзина</a>
+                    <a class="nav-link" href="/basket">Корзина</a>
                 </li>
             </ul>
-                <div class="d-flex align-items-center">Добро пожаловать! <b class="mx-2"><b>Гость</b></b>
-                    <button type="button" class="btn btn-outline-success mx-2 btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Вход
-                    </button>
-                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal1">Рег
-                    </button>
-                </div>
+            {% if false %}
+            <div>Добро пожаловать! <b>Админ</b> <a href="/auth/logout/" class="btn btn-primary ms-2 btn-sm">Выход</a>
+            </div>
+            {% else %}
+            <div class="d-flex align-items-center"> Добро пожаловать! <b class="mx-2">Гость</b>
+                <button type="button" class="btn btn-outline-success mx-2 btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Вход
+                </button>
+                <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal1">Рег
+                </button>
+            </div>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -39,7 +46,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="/auth/login">
+            <form method="post" action="/">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">логин:</label>
@@ -85,7 +92,7 @@
                         <input type="text" name="pass" class="form-control" id="message-text">
                     </div>
                 </div>
-                <div class="modal-footer"><div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">закрыть</button>
                     <button type="submit" class="btn btn-primary">зарегистрироваться</button>
                 </div>

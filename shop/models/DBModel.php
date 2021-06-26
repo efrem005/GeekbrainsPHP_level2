@@ -9,6 +9,8 @@ use app\interfaces\IModel;
 
 abstract class DBModel implements IModel
 {
+    protected $props = [];
+
     abstract protected static function getTableName();
 
     public static function getOne($id)
@@ -27,24 +29,31 @@ abstract class DBModel implements IModel
         return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
     }
 
+    public static function getWhere($name, $value)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} WHERE {$name} = :id";
+
+        return DB::getInstance()->queryObject($sql, ['id' => $value], get_called_class());
+    }
+
     protected function insert()
     {
         $params = [];
 
-        foreach ($this as $key => $value) {
-            if ($key == 'id') continue;
-            $columns[] = $key;
-            $params[":{$key}"] = $value;
+        foreach ($this->props as $key => $value) {
+            if ($key == false) continue;
+            $columns[":{$key}"] = $key;
+            $params["{$key}"] = $this->$key;
         }
 
-        $column = implode(', ', $columns);
-        $value = implode(', ', array_keys($params));
+        $column = implode(', ', array_values($columns));
+        $value = implode(', ', array_keys($columns));
         $tableName = static::getTableName();
         $sql = "INSERT INTO {$tableName} ($column) VALUES ($value)";
 
         DB::getInstance()->execute($sql, $params);
         $this->id = DB::getInstance()->lastInsertId();
-
     }
 
     protected function update()
@@ -52,12 +61,10 @@ abstract class DBModel implements IModel
         $placeholders = [];
         $params[':id'] = $this->id;
 
-        foreach ($this as $key => $value) {
-            if ($key == 'id') continue;
-            if ($this->props[$key]) {
-                $placeholders[] = "{$key} = :{$key}";
-                $params[":{$key}"] = $value;
-            }
+        foreach ($this->props as $key => $value) {
+            if ($value == false) continue;
+            $placeholders[] = "{$key} = :{$key}";
+            $params[":{$key}"] = $this->$key;
         }
 
         $tableName = static::getTableName();

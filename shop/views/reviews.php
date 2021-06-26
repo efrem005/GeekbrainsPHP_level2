@@ -18,7 +18,7 @@
             <td class="text-center"><?= $item->product ?></td>
             <td class="text-center"><?= $item->created_at ?></td>
             <td class="text-center">
-                <a href="/?c=reviews&a=delete&id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">удалить</a>
+                <a href="/reviews/delete/?id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">удалить</a>
             </td>
         </tr>
     <? endforeach; ?>

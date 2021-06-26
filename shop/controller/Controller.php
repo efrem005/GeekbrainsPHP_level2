@@ -2,14 +2,23 @@
 
 namespace app\controller;
 
+
 use app\interfaces\IController;
+
 
 abstract class Controller implements IController
 {
     private $action;
     private $defaultAction = 'index';
     private $layout = 'main';
-    private $useLayout = true;
+    private $useLayout = false;
+
+    private $render;
+
+    public function __construct($render)
+    {
+        $this->render = $render;
+    }
 
     public function runAction($action) {
         $this->action = $action ?? $this->defaultAction;
@@ -23,26 +32,12 @@ abstract class Controller implements IController
 
     protected function render($template, $params = []) {
         if ($this->useLayout) {
-            return $this->renderTemplate("layouts/{$this->layout}", [
-                'menu' => $this->renderTemplate('menu', $params),
-                'content' => $this->renderTemplate($template, $params)
+            return $this->render->renderTemplate("layouts/{$this->layout}", [
+                'menu' => $this->render->renderTemplate('menu', $params),
+                'content' => $this->render->renderTemplate($template, $params)
             ]);
         } else {
-            return $this->renderTemplate($template, $params);
-        }
-    }
-
-
-    protected function renderTemplate($template, $params = [])
-    {
-        ob_start();
-        extract($params);
-        $templatePath = ROOT . VIEWS_DIR . $template . '.php';
-        if (file_exists($templatePath)) {
-            include $templatePath;
-            return ob_get_clean();
-        } else {
-            die('404 error render tmpl');
+            return $this->render->renderTemplate($template, $params);
         }
     }
 }

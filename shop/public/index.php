@@ -2,18 +2,18 @@
 session_start();
 
 include "../config/config.php";
-include "../engine/Autoload.php";
+require '../vendor/autoload.php';
 
-use app\engine\{Autoload};
+use app\engine\{Render, TwigRender};
 
-spl_autoload_register([new Autoload(), 'loadClass']);
+$url = explode('/', $_SERVER['REQUEST_URI']);
 
-$controllerName = $_GET['c'] ?: 'index';
-$actionName = $_GET['a'];
+$controllerName = $url[1] ?: 'index';
+$actionName = $url[2];
 
 $controllerClass = CONTROLLER_DIR . ucfirst($controllerName) . 'Controller';
 
 if (class_exists($controllerClass)) {
-    $controller = new $controllerClass();
+    $controller = new $controllerClass(new TwigRender());
     $controller->runAction($actionName);
 }

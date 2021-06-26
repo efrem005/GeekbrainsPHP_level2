@@ -6,15 +6,17 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/style/bootstrap.min.css">
-    <title>Php_level_2</title>
+    <title>{% block title %}Php_level_2{% endblock %}</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <?= $menu ?>
+        {% block menu %}
+            {% include 'menu.twig' %}
+        {% endblock %}
     </div>
     <div class="row mt-3">
-        <?= $content ?>
+        {% block content %}{% endblock %}
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

@@ -1,0 +1,32 @@
+{% extends "layouts/main.twig" %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">От кого</th>
+            <th scope="col" class="text-center">отзыв</th>
+            <th scope="col" class="text-center">продукт</th>
+            <th scope="col" class="text-center">дата</th>
+            <th scope="col" colspan="3" class="text-center">опции</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in reviews %}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.user }}</td>
+                <td class="text-center">{{ item.text }}</td>
+                <td class="text-center">{{ item.product }}</td>
+                <td class="text-center">{{ item.created_at }}</td>
+                <td class="text-center">
+                    <a href="/reviews/delete/?id={{ item.id }}" class="btn btn-outline-success btn-sm">удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

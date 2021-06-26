@@ -6,8 +6,8 @@
                 <h5 class="card-title mb-3"><?= $item->title ?></h5>
                 <p>цена: <?= $item->price ?> ₽</p>
                 <div>
-                    <a href="/?c=product&a=card&id=<?= $item->id ?>" class="btn btn-outline-info btn-sm">подробно</a>
-                    <a href="/buy/?id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">купить</a>
+                    <a href="/product/card/?id=<?= $item->id ?>" class="btn btn-outline-info btn-sm">подробно</a>
+                    <a href="/product/buy/?id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">купить</a>
                 </div>
             </div>
         </div>
@@ -18,8 +18,11 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <? for ($i = 0; $i < $pagination; $i++): ?>
-                    <li class="page-item"><a class="page-link" href="?c=product&a=page&page=<?= $i ?>"><?= ($i + 1) ?></a></li>
+                    <li class="page-item"><a class="page-link" href="/product/page/?page=<?= $i ?>"><?= ($i + 1) ?></a></li>
                 <? endfor; ?>
+                <? if ($offSet < $count): ?>
+                <li class="page-item"><a class="page-link" href="/product/limit/?offset=<?= $offSet ?>">ещё</a></li>
+                <? endif; ?>
             </ul>
         </nav>
     </div>

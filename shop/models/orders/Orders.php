@@ -6,10 +6,16 @@ use app\models\Model;
 
 class Orders extends Model
 {
-    public $id;
-    public $name;
-    public $phone;
-    public $session_id;
+    protected $id;
+    protected $name;
+    protected $phone;
+    protected $session_id;
+
+    public $props = [
+        'name' => false,
+        'phone' => false,
+        'session_id' => false
+    ];
 
     public function __construct
     (
@@ -23,7 +29,7 @@ class Orders extends Model
         $this->session_id = $session_id;
     }
 
-    protected function getTableName(): string
+    protected static function getTableName(): string
     {
         return 'orders';
     }

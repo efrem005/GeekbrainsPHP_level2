@@ -7,20 +7,25 @@ use app\models\Model;
 
 class Product extends Model
 {
-    public $id; // ID товара
-    public $title; // Наименование
-    public $article; // Код товара
-    public $description; // Описание товара
-    public $price; // Цена
-    public $weight; // Вес
-    public $count; // Остаток на складе
-    public $units; // шт\кг\г
-    public $category_id; // id категории
+    protected $id; // ID товара
+    protected $title; // Наименование
+    protected $article; // Код товара
+    protected $description; // Описание товара
+    protected $price; // Цена
+    protected $weight; // Вес
+    protected $count; // Остаток на складе
+    protected $units; // шт\кг\г
+    protected $category_id; // id категории
 
-    public $props = [
-        'price' => true,
-        'count' => true,
-        'description' => true
+    protected $props = [
+        'title' => false,
+        'article' => false,
+        'description' => false,
+        'price' => false,
+        'weight' => false,
+        'count' => false,
+        'units' => false,
+        'category_id' => false
     ];
 
     public function __construct(
@@ -53,6 +58,13 @@ class Product extends Model
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet} OFFSET " . $id * $offSet;
+        return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
+    }
+
+    public static function getProductLimit($offSet)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet}";
         return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
     }
 

@@ -16,9 +16,9 @@
                     <p class="card-text"><b>цена: </b><?= $item->price ?> ₽</p>
                     <p class="card-text"><b>остаток: </b><?= $item->count ?> <?= $item->units ?></p>
                     <div class="container">
-                        <a href="/?c=product&a=cardUpdate&id=<?= $item->id ?>" class="btn btn-outline-info w-25">именить</a>
+                        <a href="/product/cardUpdate/?id=<?= $item->id ?>" class="btn btn-outline-info w-25">именить</a>
                         <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3">оставить отзыв</button>
-                        <a href="/buy/?id=<?= $item->id ?>" class="btn btn-outline-success w-25">купить</a>
+                        <a href="/product/buy/?id=<?= $item->id ?>" class="btn btn-outline-success w-25">купить</a>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Оставить отзыв</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="?c=reviews&a=add&id=<?= $item->id ?>">
+            <form method="post" action="/reviews/add/?id=<?= $item->id ?>">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleInputUser" class="form-label">Ваше имя</label>
