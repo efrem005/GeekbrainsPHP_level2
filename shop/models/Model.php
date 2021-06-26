@@ -3,65 +3,28 @@
 namespace app\models;
 
 use app\interfaces\IModel;
-use app\engine\Db;
 
 
-abstract class Model implements IModel
+abstract class Model extends DBModel
 {
-    /**
-     * @return string
-     */
-    public static function modelName()
+    protected $props = [];
+    public function __set($name, $value)
     {
-        $classNames = explode('\\', static::class);
-        $lowerCase = array_pop($classNames);
-        return strtolower($lowerCase);
-    }
-
-    public function getOne($id)
-    {
-        $sql = "SELECT * FROM {$this->modelName()} WHERE id = :id";
-
-        return DB::getInstance()->queryObject($sql, ['id' => $id], get_called_class());
-    }
-
-    public function getAll()
-    {
-        $sql = "SELECT * FROM {$this->modelName()}";
-
-        return DB::getInstance()->getAssocResult($sql, []);
-    }
-
-    public function Insert()
-    {
-        $params = [];
-
-        foreach ($this as $key => $item) {
-            if ($key == 'id') continue;
-            $rowA[] = $key;
-            $valueA[] = ":$key";
-            $params[$key] = $item;
+        if (array_key_exists($name, $this->props)){
+            $this->props[$name] = true;
         }
-
-        $row = implode(', ', $rowA);
-        $value = implode(', ', $valueA);
-
-        $sql = "INSERT INTO {$this->modelName()} ($row) VALUES ($value)";
-
-        Db::getInstance()->execute($sql, $params);
-        $this->id = Db::getInstance()->lastInsertId();
-
+        $this->$name = $value;
     }
 
-    public function update()
+    public function __get($name)
     {
-        // TODO: Implement update() method.
+        return $this->$name;
     }
 
-    public function delete()
+    public function __isset($name)
     {
-        $sql = "DELETE FROM {$this->modelName()} WHERE id = :id";
-
-        DB::getInstance()->execute($sql, [':id' => $this->id]);
+        return isset($this->$name);
     }
+
+
 }

@@ -1,7 +1,6 @@
 <?php
 
-namespace app\models\backet;
-
+namespace app\models\orders;
 use app\models\Model;
 
 
@@ -15,14 +14,14 @@ class Orders extends Model
     public $props = [
         'name' => false,
         'phone' => false,
-        '$session_id' => false
+        'session_id' => false
     ];
 
     public function __construct
     (
-        $name = '',
-        $phone = '',
-        $session_id = ''
+        $name = null,
+        $phone = null,
+        $session_id = null
     )
     {
         $this->name = $name;
@@ -30,9 +29,9 @@ class Orders extends Model
         $this->session_id = $session_id;
     }
 
-    protected static function getTableName()
+    protected static function getTableName(): string
     {
-       return 'orders';
+        return 'orders';
     }
 
     public function getProduct()
@@ -43,5 +42,4 @@ class Orders extends Model
         <b>Количество:</b> {$this->phone} шт.<br><hr>
         ";
     }
-
 }

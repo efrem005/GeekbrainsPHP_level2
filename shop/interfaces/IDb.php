@@ -7,7 +7,7 @@ interface IDb
 {
     public function lastInsertId();
     public function queryObject($sql, $params, $class);
-    public function executeQuery($sql, $params);
-    public function getAssocResult($sql, $params);
+    public function queryOne($sql, $params);
+    public function queryAll($sql, $params);
     public function execute($sql, $params);
 }

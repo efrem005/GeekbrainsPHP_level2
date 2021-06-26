@@ -21,7 +21,7 @@ class Db implements IDb
 
     use TSinletone;
 
-    protected function getDb()
+    protected function getDb(): PDO
     {
         if (is_null($this->db)) {
             $this->db = new PDO($this->getDbConfig(),
@@ -33,7 +33,7 @@ class Db implements IDb
         return $this->db;
     }
 
-    protected function getDbConfig()
+    protected function getDbConfig(): string
     {
         return sprintf('%s:host=%s;dbname=%s;charset=%s',
             $this->config['driver'],
@@ -54,22 +54,30 @@ class Db implements IDb
 
     public function lastInsertId()
     {
-        return $this->getDb()->lastInsertId();
+        return $this->db->lastInsertId();
     }
 
     public function queryObject($sql, $params, $class)
     {
         $sql = $this->query($sql, $params);
+
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
         return $sql->fetch();
     }
 
-    public function executeQuery($sql, $params)
+    public function queryObjectAll($sql, $params, $class)
+    {
+        $sql = $this->query($sql, $params);
+        $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
+        return $sql->fetchAll();
+    }
+
+    public function queryOne($sql, $params)
     {
         return $this->query($sql, $params)->fetch();
     }
 
-    public function getAssocResult($sql, $params)
+    public function queryAll($sql, $params)
     {
         return $this->query($sql, $params)->fetchAll();
     }
