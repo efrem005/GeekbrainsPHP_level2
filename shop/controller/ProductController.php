@@ -2,7 +2,7 @@
 
 namespace app\controller;
 
-use app\models\backet\Basket;
+use app\engine\Request;
 use app\models\reviews\Reviews;
 use app\models\product\{Product};
 
@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function actionPage()
     {
-        $this->page = $_GET['page'];
+        $this->page = (new Request())->getParams()['page'];
         $count = sizeof(Product::getAll());
         $pagination = ceil($count/$this->offSet);
         $catalog = Product::getProductPage($this->page, $this->offSet);
@@ -41,7 +41,7 @@ class ProductController extends Controller
 
     public function actionLimit()
     {
-        $offset = $_GET['offset'] + 4;
+        $offset = (new Request())->getParams()['offset'] + 4;
         $count = sizeof(Product::getAll());
         $pagination = ceil($count/$this->offSet);
         $catalog = Product::getProductLimit($offset);
@@ -55,7 +55,7 @@ class ProductController extends Controller
 
     public function actionCard()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
         $card = Product::getOne($id);
         $review = Reviews::getReviewOne($id);
         echo $this->render('card', [
@@ -64,32 +64,4 @@ class ProductController extends Controller
         ]);
     }
 
-    public function actionCardUpdate(){
-        $id = $_GET['id'];
-        $card = Product::getOne($id);
-        echo $this->render('cardUpdate', ['item' => $card]);
-    }
-
-    public function actionUpdate()
-    {
-        $id = $_GET['id'];
-        $card = Product::getOne($id);
-        $card->title = $_POST['title'];
-        $card->price = (int)$_POST['price'];
-        $card->count = (int)$_POST['count'];
-        $card->description = $_POST['description'];
-        $card->save();
-        header("Location: /product/card/?id={$id}");
-        die();
-    }
-
-    public function actionBuy()
-    {
-        $id = $_GET['id'];
-        $product = Product::getOne($id);
-        $backet = new Basket(2, (int)$id, 1, (int)$product->price, session_id());
-        $backet->save();
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
-        die();
-    }
 }

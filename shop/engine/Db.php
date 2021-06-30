@@ -48,7 +48,6 @@ class Db implements IDb
     {
         $sql = $this->getDb()->prepare($sql);
         $sql->execute($params);
-
         return $sql;
     }
 
@@ -60,7 +59,6 @@ class Db implements IDb
     public function queryObject($sql, $params, $class)
     {
         $sql = $this->query($sql, $params);
-
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
         return $sql->fetch();
     }

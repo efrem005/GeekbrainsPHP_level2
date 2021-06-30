@@ -7,7 +7,7 @@
                 <p>цена: <?= $item->price ?> ₽</p>
                 <div>
                     <a href="/product/card/?id=<?= $item->id ?>" class="btn btn-outline-info btn-sm">подробно</a>
-                    <a href="/product/buy/?id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">купить</a>
+                    <button class="btn btn-outline-success btn-sm buy" data-id="<?= $item->id ?>">купить</button>
                 </div>
             </div>
         </div>

@@ -4,16 +4,17 @@ session_start();
 include "../config/config.php";
 require '../vendor/autoload.php';
 
+use app\engine\Request;
 use app\engine\{Render, TwigRender};
 
-$url = explode('/', $_SERVER['REQUEST_URI']);
+$request = new Request();
 
-$controllerName = $url[1] ?: 'index';
-$actionName = $url[2];
+$controllerName = $request->getControllerName() ?: 'index';
+$actionName = $request->getActionName();
 
 $controllerClass = CONTROLLER_DIR . ucfirst($controllerName) . 'Controller';
 
 if (class_exists($controllerClass)) {
-    $controller = new $controllerClass(new TwigRender());
+    $controller = new $controllerClass(new Render());
     $controller->runAction($actionName);
 }

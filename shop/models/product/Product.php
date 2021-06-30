@@ -25,7 +25,8 @@ class Product extends Model
         'weight' => false,
         'count' => false,
         'units' => false,
-        'category_id' => false
+        'category_id' => false,
+        'created_at' => false
     ];
 
     public function __construct(
@@ -68,24 +69,4 @@ class Product extends Model
         return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
     }
 
-
-// Изменение цены
-    public function setPriceUpdate($price)
-    {
-        $this->price = $price;
-        echo "<hr>Изменилась цена на {$this->title} на цену {$price} Руб.<br><hr>";
-    }
-
-// Купить
-    public function setBuyProduct($count)
-    {
-        $this->count -= $count;
-        echo "<hr>Вы купили {$this->title} в количестве {$count} шт.<br><hr>";
-    }
-
-// Скидка
-    public function setSaleProduct($price)
-    {
-        $this->price -= $price;
-    }
 }

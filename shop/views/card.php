@@ -16,9 +16,8 @@
                     <p class="card-text"><b>цена: </b><?= $item->price ?> ₽</p>
                     <p class="card-text"><b>остаток: </b><?= $item->count ?> <?= $item->units ?></p>
                     <div class="container">
-                        <a href="/product/cardUpdate/?id=<?= $item->id ?>" class="btn btn-outline-info w-25">именить</a>
                         <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal3">оставить отзыв</button>
-                        <a href="/product/buy/?id=<?= $item->id ?>" class="btn btn-outline-success w-25">купить</a>
+                        <button class="btn btn-outline-success buy" data-id="<?= $item->id ?>">купить</button>
                     </div>
                 </div>
             </div>
@@ -48,7 +47,7 @@
         </div>
     </div>
 </div>
-<!-- модальное окно -->
+
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -75,4 +74,3 @@
         </div>
     </div>
 </div>
-<!-- модальное окно -->
