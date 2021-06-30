@@ -3,6 +3,7 @@
 namespace app\controller;
 
 
+use app\engine\Request;
 use app\models\reviews\Reviews;
 
 class ReviewsController extends Controller
@@ -15,19 +16,18 @@ class ReviewsController extends Controller
 
     protected function actionDelete()
     {
-        $id = $_GET['id'];
+        $id = (new Request())->getParams()['id'];
         $review = Reviews::getOne($id);
         $review->delete();
-        header("Location: " . $_SERVER['HTTP_REFERER']);
+        header("Location: " . (new Request())->getHttpReferer());
     }
 
     protected function actionAdd()
     {
-        $user = $_POST['user'];
-        $text = $_POST['text'];
-        $product_id = $_GET['id'];
-        $review = new Reviews($user, $text, $product_id);
-        $review->save();
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        $user = (new Request())->getParams()['user'];
+        $text = (new Request())->getParams()['text'];
+        $product_id = (new Request())->getParams()['id'];
+        (new Reviews($user, $text, $product_id))->save();
+        header("Location: " . (new Request())->getHttpReferer());
     }
 }

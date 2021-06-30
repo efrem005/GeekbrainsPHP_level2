@@ -21,6 +21,13 @@ abstract class DBModel implements IModel
         return DB::getInstance()->queryObject($sql, ['id' => $id], get_called_class());
     }
 
+    public static function getCountWhere($name, $value)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT count(*) as count FROM {$tableName} WHERE `{$name}` = :value";
+        return DB::getInstance()->queryOne($sql, ['value' => $value])['count'];
+    }
+
     public static function getAll()
     {
         $tableName = static::getTableName();
@@ -35,6 +42,14 @@ abstract class DBModel implements IModel
         $sql = "SELECT * FROM {$tableName} WHERE {$name} = :id";
 
         return DB::getInstance()->queryObject($sql, ['id' => $value], get_called_class());
+    }
+
+    public static function getWhereAll($name, $value)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} WHERE {$name} = :id";
+
+        return DB::getInstance()->queryObjectAll($sql, ['id' => $value], get_called_class());
     }
 
     protected function insert()
@@ -70,7 +85,7 @@ abstract class DBModel implements IModel
         $tableName = static::getTableName();
         $placeholders = implode(', ', $placeholders);
 
-        $sql = "UPDATE {$tableName} SET  {$placeholders} WHERE id = :id;";
+        $sql = "UPDATE {$tableName} SET {$placeholders} WHERE id = :id;";
 
         DB::getInstance()->execute($sql, $params);
     }

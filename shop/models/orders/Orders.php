@@ -9,24 +9,33 @@ class Orders extends Model
     protected $id;
     protected $name;
     protected $phone;
+    protected $price;
     protected $session_id;
+    protected $status;
 
     public $props = [
         'name' => false,
         'phone' => false,
-        'session_id' => false
+        'price' => false,
+        'session_id' => false,
+        'status' => false
     ];
 
     public function __construct
     (
         $name = null,
         $phone = null,
-        $session_id = null
+        $price = null,
+        $session_id = null,
+        $status = null
+
     )
     {
         $this->name = $name;
         $this->phone = $phone;
+        $this->price = $price;
         $this->session_id = $session_id;
+        $this->status = $status;
     }
 
     protected static function getTableName(): string
@@ -34,12 +43,4 @@ class Orders extends Model
         return 'orders';
     }
 
-    public function getProduct()
-    {
-        echo "
-        <hr><b>Заказы</b><br>
-        <b>Наименование:</b> {$this->name}<br>
-        <b>Количество:</b> {$this->phone} шт.<br><hr>
-        ";
-    }
 }

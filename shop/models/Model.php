@@ -7,7 +7,9 @@ use app\interfaces\IModel;
 
 abstract class Model extends DBModel
 {
+
     protected $props = [];
+
     public function __set($name, $value)
     {
         if (array_key_exists($name, $this->props)){
@@ -25,6 +27,5 @@ abstract class Model extends DBModel
     {
         return isset($this->$name);
     }
-
 
 }

@@ -12,14 +12,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/product">Каталог</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reviews" >Отзывы</a>
+                <? if($isAdmin): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Управление
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/admin/product">Каталог</a></li>
+                        <li><a class="dropdown-item" href="/admin/reviews">Отзывы</a></li>
+                        <li><a class="dropdown-item" href="/admin/users">Пользователи</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/admin/orders">Заказы</a></li>
+                    </ul>
                 </li>
+                <? endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/basket" >Корзина</a>
+                    <a class="nav-link" href="/basket" >Корзина<span class="badge bg-secondary" id="countBasket"><?=$count?></span></a>
                 </li>
             </ul>
-                <div class="d-flex align-items-center">Добро пожаловать! <b class="mx-2"><b>Гость</b></b>
+            <? if($isAuth): ?>
+                <div>Добро пожаловать! <b><?=$fast_name?></b> <a href="/auth/Logout" class="btn btn-primary ms-2 btn-sm">Выход</a>
+                </div>
+            <? else: ?>
+                <div class="d-flex align-items-center">Добро пожаловать! <b class="mx-2"><b><?=$fast_name?></b></b>
                     <button type="button" class="btn btn-outline-success mx-2 btn-sm" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Вход
                     </button>
@@ -27,11 +42,11 @@
                             data-bs-target="#exampleModal1">Рег
                     </button>
                 </div>
+            <? endif; ?>
         </div>
     </div>
 </nav>
 
-<!-- модальное окно -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -56,13 +71,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">закрыть</button>
-                    <button type="submit" name='send' class="btn btn-primary">войти</button>
+                    <button type="submit" class="btn btn-primary">войти</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- модальное окно -->
+
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,7 +85,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Регистрация</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="/user/add">
+            <form method="post" action="/auth/add">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Имя:</label>
@@ -93,4 +108,3 @@
         </div>
     </div>
 </div>
-<!-- модальное окно -->
