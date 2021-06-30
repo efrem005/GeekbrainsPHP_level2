@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 22 2021 г., 18:01
+-- Время создания: Июл 01 2021 г., 00:22
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -31,7 +31,7 @@ CREATE TABLE `basket` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
-  `count` varchar(100) NOT NULL,
+  `count` int NOT NULL,
   `price` int DEFAULT NULL,
   `session_id` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,86 @@ CREATE TABLE `basket` (
 --
 
 INSERT INTO `basket` (`id`, `user_id`, `product_id`, `count`, `price`, `session_id`) VALUES
-(1, 2, 3, '4', 120, 'dfbbeb3j6bgguyifb');
+(1, 2, 2, 4, 25, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(2, 2, 3, 2, 120, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(3, 5, 4, 1, 72, 'p13dbfhs6vqoo06dt74gpqh97ks46qqt'),
+(4, 5, 5, 1, 95, 'p13dbfhs6vqoo06dt74gpqh97ks46qqt'),
+(5, 5, 1, 2, 63, 'p13dbfhs6vqoo06dt74gpqh97ks46qqt'),
+(6, 5, 7, 1, 76, 'p13dbfhs6vqoo06dt74gpqh97ks46qqt'),
+(7, 2, 1, 2, 63, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(8, 2, 6, 4, 529, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(9, 2, 4, 1, 72, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(10, 2, 7, 1, 76, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(11, 2, 10, 1, 96, '0id4upbu5p6neir6b6kdkhlee1h0tv2b'),
+(12, 2, 4, 1, 72, 'jprlqku721nipqi1o3g6ep3re2udti7s'),
+(13, 2, 2, 5, 25, 'jprlqku721nipqi1o3g6ep3re2udti7s'),
+(14, 13, 1, 2, 63, 'rgfm4bijgus729a6bd970m4reh4u64kd'),
+(15, 13, 2, 3, 25, 'rgfm4bijgus729a6bd970m4reh4u64kd'),
+(16, 13, 3, 2, 120, 'rgfm4bijgus729a6bd970m4reh4u64kd'),
+(17, 13, 4, 5, 72, 'rgfm4bijgus729a6bd970m4reh4u64kd'),
+(18, NULL, 6, 9, 529, 'on8h9an5jt4jj1gnb02qrpol7pcvo3ij'),
+(19, NULL, 8, 5, 73, 'on8h9an5jt4jj1gnb02qrpol7pcvo3ij'),
+(20, 2, 2, 1, 25, 'tqigbuesj1di5ud9jmjbfe3j8na0ffkk'),
+(21, 2, 4, 2, 72, 'tqigbuesj1di5ud9jmjbfe3j8na0ffkk'),
+(22, 2, 3, 1, 120, 'tqigbuesj1di5ud9jmjbfe3j8na0ffkk'),
+(23, 13, 2, 1, 25, '2ff8vka0utuscq35lj4dhgng8r6gt61m'),
+(24, 2, 2, 17, 25, 'c1i144hl3fgt97vvoiehb298e6uv10ap'),
+(25, 2, 3, 1, 120, 'c1i144hl3fgt97vvoiehb298e6uv10ap'),
+(26, 10, 3, 1, 120, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(27, 10, 2, 1, 25, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(28, 10, 1, 1, 80, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(29, 10, 4, 1, 72, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(30, 10, 6, 5, 529, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(31, 10, 7, 6, 76, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(32, 10, 5, 6, 95, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(33, 10, 8, 1, 73, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(34, 10, 10, 4, 96, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(35, 10, 9, 8, 102, 'vta1s4iu0esb23hhj5t5sqe0es0o0suo'),
+(39, 1, 3, 3, 120, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(40, 1, 2, 2, 25, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(41, 1, 4, 3, 72, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(42, 1, 1, 3, 80, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(43, 1, 6, 2, 529, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(44, 1, 7, 2, 76, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(45, 1, 8, 2, 73, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(46, 1, 10, 1, 96, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(47, 1, 9, 1, 102, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(48, 1, 5, 2, 95, 'um9k5icun4vshg8u3e6i0cb59aih4vhe'),
+(49, 1, 1, 1, 80, 't1ab70vd9svuoq8a7lu1mr5n5jmrb9jn'),
+(50, 1, 2, 1, 25, 't1ab70vd9svuoq8a7lu1mr5n5jmrb9jn'),
+(51, 1, 3, 1, 120, 't1ab70vd9svuoq8a7lu1mr5n5jmrb9jn'),
+(52, 1, 4, 1, 72, 't1ab70vd9svuoq8a7lu1mr5n5jmrb9jn'),
+(53, 2, 1, 1, 80, 'qqq76lshna79291219ao6fa2gosl0vfn'),
+(54, 2, 2, 4, 25, 'qqq76lshna79291219ao6fa2gosl0vfn'),
+(55, 2, 4, 4, 72, 'qqq76lshna79291219ao6fa2gosl0vfn'),
+(57, 2, 2, 2, 25, 'ria1no7dta1om20opoi6e2tk7koc1av5'),
+(58, 2, 3, 3, 120, 'ria1no7dta1om20opoi6e2tk7koc1av5'),
+(59, 2, 4, 2, 72, 'ria1no7dta1om20opoi6e2tk7koc1av5'),
+(60, 2, 2, 1, 25, 'pilknmtcfq7eqn7u4vg0dkicgf78hgbl'),
+(61, 1, 1, 2, 72, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(62, 1, 2, 2, 25, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(63, 1, 3, 2, 120, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(64, 1, 4, 4, 72, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(65, 1, 6, 2, 529, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(66, 1, 7, 1, 76, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3'),
+(67, NULL, 3, 3, 130, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(68, NULL, 7, 3, 76, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(69, NULL, 10, 3, 96, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(70, NULL, 2, 3, 25, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(71, NULL, 4, 2, 72, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(72, NULL, 9, 5, 127, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(73, NULL, 1, 1, 72, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(74, NULL, 5, 2, 95, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(75, NULL, 6, 2, 529, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(76, NULL, 8, 6, 73, 'io1nvoailv31b3mmljqoofb3aj535k76'),
+(77, 13, 3, 7, 130, 'cm4jq3aiqis5u7dqk3sa90c0lpf3u9ii'),
+(85, 2, 2, 15, 25, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(86, 2, 1, 8, 72, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(87, 2, 3, 9, 130, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(88, 2, 4, 8, 72, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(89, 2, 10, 6, 96, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(90, 2, 9, 6, 127, 'nbrtk6so1ubu7nli6lotbdefect1f0in'),
+(91, 2, 6, 9, 529, 'nbrtk6so1ubu7nli6lotbdefect1f0in');
 
 -- --------------------------------------------------------
 
@@ -138,11 +217,23 @@ INSERT INTO `news` (`id`, `title`, `text`, `category_id`, `view`) VALUES
 
 CREATE TABLE `orders` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` text,
   `phone` text NOT NULL,
+  `price` float NOT NULL,
   `session_id` text NOT NULL,
+  `status` varchar(50) DEFAULT 'в обработке',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `phone`, `price`, `session_id`, `status`, `created_at`) VALUES
+(2, 'mr.Bin', '+79215002130', 1856, 'l85ngri5qhoj16g7svg9kvnlifo3pqi3', 'в пути', '2021-06-30 22:41:31'),
+(3, 'mr.Rob', '+79082225599', 3518, 'io1nvoailv31b3mmljqoofb3aj535k76', 'ждет курьера', '2021-06-30 23:28:50'),
+(4, 'Алла', '+79551188432', 910, 'cm4jq3aiqis5u7dqk3sa90c0lpf3u9ii', 'собирается', '2021-06-30 23:31:10'),
+(5, 'mr.Muhamed', '+7905225454', 8796, 'nbrtk6so1ubu7nli6lotbdefect1f0in', 'в обработке', '2021-07-01 00:21:42');
 
 -- --------------------------------------------------------
 
@@ -202,15 +293,15 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `title`, `article`, `description`, `price`, `weight`, `count`, `units`, `category_id`, `image`, `created_at`) VALUES
-(1, 'Авокадо', 0, 'Авокадо — это плод дерева, которое по-научному называется Persea americana (Персея американская). Оно ценится за высокую питательность и насыщенную текстуру [1]. Авокадо очень популярно у сторонников здорового питания, его часто называют суперфудом из-за полезных свойств [2]. Известно несколько разновидностей авокадо, различаемых по форме, цвету, вкусовым качествам и весу (200 г — 1,4 кг). Родина авокадо — Центральная Америка и Мексика. Часто путаются с определением авокадо: по внешнему виду плод напоминает орех, по химическому составу и вкусовым качествам — овощ, однако авокадо считается фруктом.', 63, '0', 11, 'шт', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/avokado.jpg', '2021-06-10 00:36:28'),
-(2, 'Арбуз', 0, 'Арбуз – один из любимых продуктов детей и многих взрослых. Но не все знают, как назвать эти сочные и сладкие плоды правильно. Чтобы выяснить, арбуз – это фрукт или все-таки ягода, для начала надо разобраться, что означают эти понятия.', 17, '0', 36, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/arb.png', '2021-06-09 23:45:24'),
-(3, 'Айва', 0, 'Если верить гомеровским писаниям, то айва или квитовое яблоко – это верховный фрукт в саду Гесперид. Именно там, в палисаднике персонажей древнегреческой мифологии, росли деревья с золотыми плодами. Выращивать айву начали примерно 2600 лет назад, следовательно, она является самой старой сельскохозяйственной культурой.', 120, '0', 6, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ayva.jpg', '2021-06-09 22:06:26'),
+(1, 'Авокадо', 0, 'Авокадо — это плод дерева, которое по-научному называется Persea americana (Персея американская). Оно ценится за высокую питательность и насыщенную текстуру [1]. Авокадо очень популярно у сторонников здорового питания, его часто называют суперфудом из-за полезных свойств [2]. Известно несколько разновидностей авокадо, различаемых по форме, цвету, вкусовым качествам и весу (200 г — 1,4 кг). Родина авокадо — Центральная Америка и Мексика. Часто путаются с определением авокадо: по внешнему виду плод напоминает орех, по химическому составу и вкусовым качествам — овощ, однако авокадо считается фруктом.', 72, '0', 27, 'шт', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/avokado.jpg', '2021-06-30 22:25:21'),
+(2, 'Арбуз', 0, 'Арбуз – один из любимых продуктов детей и многих взрослых. Но не все знают, как назвать эти сочные и сладкие плоды правильно. Чтобы выяснить, арбуз – это фрукт или все-таки ягода, для начала надо разобраться, что означают эти понятия.', 25, '0', 18, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/arb.png', '2021-06-30 14:52:12'),
+(3, 'Айва', 0, 'Если верить гомеровским писаниям, то айва или квитовое яблоко – это верховный фрукт в саду Гесперид. Именно там, в палисаднике персонажей древнегреческой мифологии, росли деревья с золотыми плодами. Выращивать айву начали примерно 2600 лет назад, следовательно, она является самой старой сельскохозяйственной культурой.', 130, '0', 30, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ayva.jpg', '2021-06-30 22:50:14'),
 (4, 'Абрикос', 0, 'Абрикос – это листопадное дерево, входящее в семейство розовые. В высоту растение достигает 5-8 метров, ствол покрыт серо-бурой корой. Максимальный возраст деревьев 100 лет. Активно плодоносит в промежутке с 3 до 40 лет. Существуют дикая и одомашненная форма растения. Дикий абрикос сохранился только в Гималаях, горных районах Тянь-Шаня, Северного Кавказа.', 72, '0', 7, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/abrikos.jpg', '2021-06-09 19:31:15'),
-(5, 'Ананас', 0, 'Ананас – это плод многолетнего травянистого растения, родиной которого считается Южная Америка, именно там и его и обнаружил Христофор Колумб. Со временем культура распространилась по близлежащим континентам и в настоящее время культивируется во множестве стран: Австралия, Индия, Южная Америка, Филиппины и Гавайские острова.', 95, '0', 14, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/pine.jpg', '2021-06-09 19:31:15'),
+(5, 'Ананас', 0, 'Ананас – это плод многолетнего травянистого растения, родиной которого считается Южная Америка, именно там и его и обнаружил Христофор Колумб. Со временем культура распространилась по близлежащим континентам и в настоящее время культивируется во множестве стран: Австралия, Индия, Южная Америка, Филиппины и Гавайские острова.', 95, '0', 20, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/pine.jpg', '2021-06-30 09:55:54'),
 (6, 'Ананас GOLD', 0, 'Ананас Голд — это тропический фрукт, выращиваемый в теплых странах Южной Америки, Азии, Африки и по внешнему виду напоминающий большую шишку. Внутри нее скрывается желтая или золотая мякоть, которая отличается сочностью, сахарной сладостью и незабываемым ароматом.', 529, '0', 12, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/anagold.jpg', '2021-06-09 19:31:15'),
 (7, 'Апельсины', 0, 'Апельсины – это цитрусовые круглой формы, диаметром 5-10 сантиметров. Они имеют бугристую оранжевую кожуру, мясистую мякоть оранжевого цвета и косточки. Вкус зависит от сорта и меняется от сладкого до горького.', 76, '0', 10, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ap.jpg', '2021-06-09 23:52:29'),
 (8, 'Бананы', 0, 'Бананы – это экзотические плоды эллиптической формы с кремообразной мякотью, покрытой плотной несъедобной кожурой. Банановое дерево может вырастать от 3 до 6 м в высоту. Плоды формируются группами по 50—150 штук, которые объединяются в кластеры по 10—25 штук.', 73, '0', 72, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/ban.jpg', '2021-06-09 19:31:15'),
-(9, 'Виноград белый', 0, 'Несмотря на название, под белым виноградом подразумеваются сорта, дающие урожай белых, зеленых и желтых плодов. Желтая и зеленая разновидности относятся к белому винограду, считаясь его подвидами. Белый виноград может быть разделен на две большие группы – столовую и техническую. Первая группа пригодна для употребления в пищу в свежем виде, вторая предназначается для переработки с целью приготовления вин и других продуктов. Существуют универсальные сорта, да и большинство столовых сортов вполне может выступить в роли сырья. В свою очередь, ягоды технических сортов в своей основной массе могут употребляться в пищу свежими. Однако специалисты предпочитают разделять эти две группы.', 102, '0', 8, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/vin.jpg', '2021-06-09 19:31:15'),
+(9, 'Виноград белый', 0, 'Несмотря на название, под белым виноградом подразумеваются сорта, дающие урожай белых, зеленых и желтых плодов. Желтая и зеленая разновидности относятся к белому винограду, считаясь его подвидами. Белый виноград может быть разделен на две большие группы – столовую и техническую. Первая группа пригодна для употребления в пищу в свежем виде, вторая предназначается для переработки с целью приготовления вин и других продуктов. Существуют универсальные сорта, да и большинство столовых сортов вполне может выступить в роли сырья. В свою очередь, ягоды технических сортов в своей основной массе могут употребляться в пищу свежими. Однако специалисты предпочитают разделять эти две группы.', 127, '0', 25, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/vin.jpg', '2021-06-30 22:25:47'),
 (10, 'Виноград Red Glode', 0, 'Один из наиболее выращиваемых по всему миру сортов винограда Ред Глоб высоко оценен и селекционерами, и обычными покупателями. Эффектный вид гроздей, приятное освежающее сочетание сладости и кислоты в ягодах, узнаваемый оттенок кожицы — все это делает его привлекательным для выращивания. А также виноград встречается под названиями Красный Глобус, Красная Земля, Глобо Ройо, Роуз ЛТО. В России сорт выращивается в южных регионах, поскольку он очень теплолюбив. В США культивируется в климатической зоне Калифорнии и других южных штатов. Распространен в Китае и Японии, в Латинской Америке.', 96, '0', 33, 'кг', 6, 'https://raw.githubusercontent.com/efrem005/json/master/responses/img/rg.jpg', '2021-06-09 22:02:31');
 
 -- --------------------------------------------------------
@@ -244,7 +335,9 @@ INSERT INTO `reviews` (`id`, `user`, `text`, `product_id`, `created_at`) VALUES
 (35, 'Алла', 'Вкусный!!!', 2, '2021-06-22 21:49:31'),
 (36, 'Анна', 'Вот это вкус!!!!', 4, '2021-06-22 21:55:25'),
 (37, 'Анна', 'Бананы класс!!!!', 8, '2021-06-22 21:55:56'),
-(38, 'Николай', 'Все отлично!!', 3, '2021-06-22 21:59:14');
+(38, 'Николай', 'Все отлично!!', 3, '2021-06-22 21:59:14'),
+(39, 'Николай', 'И снова арбуз', 2, '2021-06-25 23:34:30'),
+(40, 'Алла', 'Все отлично советую!!!', 3, '2021-06-30 23:30:36');
 
 -- --------------------------------------------------------
 
@@ -256,25 +349,26 @@ CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
   `login` varchar(100) NOT NULL,
   `pass` varchar(100) NOT NULL,
+  `fast_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `hash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `role` int DEFAULT '0',
-  `fast_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `role` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `pass`, `hash`, `role`, `fast_name`) VALUES
-(1, 'mr.Bin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', '', 0, 'Bin'),
-(2, 'Admin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', '111546843160c2544f0dbf86.48878003', 1, 'Admin'),
-(3, 'efrem', '$2y$10$86saABnS0YxGtRpcgAvs9uqHXo.jknTt9d/JfS/SF8PhDwBT0zxKO', NULL, 0, 'Николай'),
-(4, 'strela_24', '$2y$10$olmdywJomCpVUBu8NnFAGOd4PTjvxWM9QL3RZ/vjny5RIwjd3kvGG', '195716863160c26488bddfa4.50638803', 0, 'Анастасия'),
-(5, 'efrem_nn', 'asdfghjkl', 'fgnnteyntgbgrbrt75467567', 1, 'Николай'),
-(8, 'strela_24', '$2y$10$Ifiksw2Syh231AHJbQQOyug/CqQAbE0kRihgsGFl5brtVKDCSdIzu', NULL, NULL, 'Анастасия'),
-(9, 'strela_24', '$2y$10$xhcBisgAeqa9lIVkFi8cW.hyaB3Jby9UeS4.Ut7g/7hvtViEpF4XS', NULL, 0, 'Анастасия'),
-(10, 'rob_12', '$2y$10$Mu9evqyGEzV0TqqL/AqdqOdH.LGXFB/IusmYfd8aKEh9v8SOtIk/.', NULL, 0, 'mr.Rob'),
-(11, 'ivanov_av', '$2y$10$XnLWwBDktk1pAZCz8Lmqc.2WqxsQeeJdB0.mIrko/uUfb1NICSnYW', NULL, 0, 'Антон');
+INSERT INTO `users` (`id`, `login`, `pass`, `fast_name`, `hash`, `role`) VALUES
+(1, 'mr.Bin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', 'Bin', '', 1),
+(2, 'Admin', '$2y$10$AaUuMOPTMSsmMCjJ4sGwgOG7V.DNIecSEhr0er46673whpCMaX2dW', 'Admin', '64662654860dc9c77193438.26715813', 1),
+(3, 'efrem', '$2y$10$86saABnS0YxGtRpcgAvs9uqHXo.jknTt9d/JfS/SF8PhDwBT0zxKO', 'Николай', NULL, 0),
+(4, 'strela_24', '$2y$10$olmdywJomCpVUBu8NnFAGOd4PTjvxWM9QL3RZ/vjny5RIwjd3kvGG', 'Анастасия', '195716863160c26488bddfa4.50638803', 0),
+(5, 'efrem_nn', '$2y$10$AQ5cGE8.lFrn6ztUlvI9ge3yVBgj0lVlJ57YbmYFgyQyAnHo.Rrxe', 'Николай', '86322439960d8b4848368f4.77789447', 1),
+(8, 'strela_24', '$2y$10$Ifiksw2Syh231AHJbQQOyug/CqQAbE0kRihgsGFl5brtVKDCSdIzu', 'Анастасия', NULL, NULL),
+(10, 'rob_12', '$2y$10$Mu9evqyGEzV0TqqL/AqdqOdH.LGXFB/IusmYfd8aKEh9v8SOtIk/.', 'mr.Rob', NULL, 0),
+(11, 'ivanov_av', '$2y$10$XnLWwBDktk1pAZCz8Lmqc.2WqxsQeeJdB0.mIrko/uUfb1NICSnYW', 'Антон', NULL, 0),
+(12, 'mr.May', '$2y$10$lrXo0ITvNysFi8Q8.Ra4ruByyy9rMsElbxMokn.GLbN28zLLZI916', 'Анастасия', NULL, 0),
+(13, 'vladimir', '$2y$10$CAB9C009zw6Bb4jVR2Qx9uL9oLthX27h2cyGcxq.6lc49YMpWOAWS', 'Вова', '59144112260dbdfb4c68f68.89511697', 0);
 
 --
 -- Индексы сохранённых таблиц
@@ -351,7 +445,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT для таблицы `category`
@@ -369,7 +463,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `photo`
@@ -387,13 +481,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT для таблицы `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
