@@ -17,4 +17,9 @@ class ErrorController extends Controller
         echo $this->render('error/error', ['error' => 'Вы не АДМИН доступ закрыт']);
     }
 
+    protected function actionPage()
+    {
+        echo $this->render('error/error', ['error' => 'Такого продукты нет']);
+    }
+
 }

@@ -4,7 +4,8 @@
 namespace app\engine;
 
 
-use app\models\user\Users;
+use app\models\repositories\user\UsersRepositories;
+use Dotenv\Dotenv;
 
 class Request
 {
@@ -12,7 +13,7 @@ class Request
     protected $controllerName;
     protected $actionName;
     protected $httpReferer;
-
+    protected $dotenv;
 
     protected $params = [];
     protected $method;
@@ -32,6 +33,10 @@ class Request
         $this->controllerName = $url[1];
         $this->actionName = $url[2];
 
+        $this->dotenv = Dotenv::createImmutable(ROOT . "/data/")->load();
+
+        $this->params = $_REQUEST;
+
         $data = json_decode(file_get_contents('php://input'));
         if (!is_null($data)) {
             foreach ($data as $key => $value) {
@@ -39,23 +44,22 @@ class Request
             }
         }
 
-
         $this->httpReferer = $_SERVER['HTTP_REFERER'];
 
-        $this->params = $_REQUEST;
     }
 
     /**
      * @return mixed
      */
     public function getControllerName()
-    {
-        if (strtolower($this->controllerName) == 'admin'){
-            if (Users::isAdmin()) {
+    {   // если есть обрашение к контроллеру adminController то мы проверяем Admin или нет
+        // правельно здесь это делать или надо в другом месте
+        if (strtolower($this->controllerName) == 'admin') {
+            if ((new UsersRepositories())->isAdmin()) {
                 return $this->controllerName;
             }
             header("Location: /error/admin");
-            die();
+            throw new \Exception("Вы не админ");
         }
         return $this->controllerName;
     }
@@ -90,6 +94,14 @@ class Request
     public function getMethod()
     {
         return $this->method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnv($name)
+    {
+        return $_ENV[$name];
     }
 
 }

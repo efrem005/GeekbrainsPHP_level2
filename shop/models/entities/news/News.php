@@ -1,7 +1,9 @@
 <?php
 
-namespace app\models\news;
+namespace app\models\entities\news;
+
 use app\models\Model;
+
 
 class News extends Model
 {
@@ -30,10 +32,4 @@ class News extends Model
         $this->category_id = $category_id;
         $this->view = $view;
     }
-
-    protected static function getTableName(): string
-    {
-        return 'news';
-    }
-
 }

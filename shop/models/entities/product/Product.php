@@ -1,9 +1,9 @@
 <?php
 
-namespace app\models\product;
+namespace app\models\entities\product;
 
-use app\engine\Db;
 use app\models\Model;
+
 
 class Product extends Model
 {
@@ -49,24 +49,4 @@ class Product extends Model
         $this->units = $units;
         $this->category_id = $category_id;
     }
-
-    protected static function getTableName()
-    {
-        return 'product';
-    }
-
-    public static function getProductPage($id, $offSet)
-    {
-        $tableName = static::getTableName();
-        $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet} OFFSET " . $id * $offSet;
-        return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
-    }
-
-    public static function getProductLimit($offSet)
-    {
-        $tableName = static::getTableName();
-        $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet}";
-        return DB::getInstance()->queryObjectAll($sql, [], get_called_class());
-    }
-
 }

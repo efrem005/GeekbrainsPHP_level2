@@ -2,12 +2,11 @@
 
 namespace app\controller;
 
-
 use app\engine\Session;
 use app\interfaces\IController;
 use app\interfaces\IRender;
-use app\models\backet\Basket;
-use app\models\user\Users;
+use app\models\repositories\backet\BasketRepositories;
+use app\models\repositories\user\UsersRepositories;
 
 
 abstract class Controller implements IController
@@ -24,6 +23,11 @@ abstract class Controller implements IController
         $this->render = $render;
     }
 
+    public function error()
+    {
+        echo $this->render('error/error', ['error' => 'Контроллер не найден']);
+    }
+
     public function runAction($action)
     {
         $this->action = $action ?? $this->defaultAction;
@@ -31,7 +35,7 @@ abstract class Controller implements IController
         if (method_exists($this, $method)) {
             $this->$method();
         } else {
-            die('404 error action');
+            echo $this->render('error/error', ['error' => 'Акшен не найден']);
         }
     }
 
@@ -40,11 +44,11 @@ abstract class Controller implements IController
         if ($this->useLayout) {
             return $this->render->renderTemplate("layouts/{$this->layout}", [
                 'menu' => $this->render->renderTemplate('menu', [
-                    'isAuth' => Users::isAuth(),
-                    'user' => Users::getName(),
-                    'fast_name' => Users::getFastName(),
-                    'count' => Basket::getCountWhere('session_id', (new Session())->getId()),
-                    'isAdmin' => Users::isAdmin()
+                    'isAuth' => (new UsersRepositories())->isAuth(),
+                    'user' => (new UsersRepositories())->getName(),
+                    'fast_name' => (new UsersRepositories())->getFastName(),
+                    'count' => (new BasketRepositories())->getCountWhere('session_id', (new Session())->getId()),
+                    'isAdmin' => (new UsersRepositories())->isAdmin()
                 ]),
                 'content' => $this->render->renderTemplate($template, $params)
             ]);

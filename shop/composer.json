@@ -1,7 +1,10 @@
 {
     "require": {
         "twig/twig": "^3.3",
-      "ext-json": "*"
+      "ext-json": "*",
+        "vlucas/phpdotenv": "^5.3",
+      "ext-pdo": "*",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {

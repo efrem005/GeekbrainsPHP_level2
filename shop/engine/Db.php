@@ -8,15 +8,6 @@ use \PDO;
 
 class Db implements IDb
 {
-    private $config = [
-        'driver' => 'mysql',
-        'host' => 'localhost',
-        'db' => 'shopphp',
-        'charset' => 'UTF8',
-        'username' => 'root',
-        'password' => 'root',
-    ];
-
     protected $db = null;
 
     use TSinletone;
@@ -25,8 +16,8 @@ class Db implements IDb
     {
         if (is_null($this->db)) {
             $this->db = new PDO($this->getDbConfig(),
-                $this->config['username'],
-                $this->config['password']
+                (new Request())->getEnv('USERNAME'),
+                (new Request())->getEnv('PASSWORD')
             );
             $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
@@ -36,10 +27,10 @@ class Db implements IDb
     protected function getDbConfig(): string
     {
         return sprintf('%s:host=%s;dbname=%s;charset=%s',
-            $this->config['driver'],
-            $this->config['host'],
-            $this->config['db'],
-            $this->config['charset']
+            (new Request())->getEnv('DRIVER'),
+            (new Request())->getEnv('HOST'),
+            (new Request())->getEnv('DB'),
+            (new Request())->getEnv('CHARSET')
         );
     }
 
@@ -60,14 +51,22 @@ class Db implements IDb
     {
         $sql = $this->query($sql, $params);
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
-        return $sql->fetch();
+        $obj = $sql->fetch();
+        if(!$obj){
+            throw new \Exception('Такого продукта нет', 404);
+        };
+        return $obj;
     }
 
     public function queryObjectAll($sql, $params, $class)
     {
         $sql = $this->query($sql, $params);
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
-        return $sql->fetchAll();
+        $obj = $sql->fetchAll();
+        if(!$obj){
+            throw new \Exception('Такого продукта нет', 404);
+        };
+        return $obj;
     }
 
     public function queryOne($sql, $params)
