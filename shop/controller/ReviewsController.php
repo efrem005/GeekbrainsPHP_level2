@@ -2,22 +2,23 @@
 
 namespace app\controller;
 
-
 use app\engine\Request;
-use app\models\reviews\Reviews;
+use app\models\entities\reviews\Reviews;
+use app\models\repositories\reviews\ReviewsRepositories;
+
 
 class ReviewsController extends Controller
 {
     protected function actionIndex()
     {
-        $reviews = Reviews::getReviewAll();
+        $reviews = (new ReviewsRepositories())->getReviewAll();
         echo $this->render('reviews', ['reviews' => $reviews]);
     }
 
     protected function actionDelete()
     {
         $id = (new Request())->getParams()['id'];
-        $review = Reviews::getOne($id);
+        $review = (new ReviewsRepositories())->getOne($id);
         $review->delete();
         header("Location: " . (new Request())->getHttpReferer());
     }
@@ -27,7 +28,8 @@ class ReviewsController extends Controller
         $user = (new Request())->getParams()['user'];
         $text = (new Request())->getParams()['text'];
         $product_id = (new Request())->getParams()['id'];
-        (new Reviews($user, $text, $product_id))->save();
+        $review = new Reviews($user, $text, $product_id);
+        (new ReviewsRepositories())->save($review);
         header("Location: " . (new Request())->getHttpReferer());
     }
 }

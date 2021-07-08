@@ -11,7 +11,7 @@
     </thead>
     <tbody>
     <? foreach ($basket as $item): ?>
-        <tr>
+        <tr id="<?=$item->id?>">
             <th scope="row"><?= $item->id ?></th>
             <td><?= $item->title ?></td>
             <td class="text-center"><?= $item->count ?> <?= $item->units ?></td>
@@ -19,7 +19,7 @@
             <td class="text-center"><?= ($item->count * $item->price); ?> ₽</td>
             <td class="text-center">
                 <a href="/basket/countUp/?id=<?= $item->product_id ?>" class="btn btn-outline-success btn-sm">+</a>
-                <a href="/basket/delete/?id=<?= $item->id ?>" class="btn btn-outline-success btn-sm">удалить</a>
+                <button class="btn btn-outline-success btn-sm delete" data-id="<?= $item->id ?>">удалить</button>
                 <a href="/basket/countDown/?id=<?= $item->product_id ?>" class="btn btn-outline-success btn-sm">-</a>
             </td>
         </tr>

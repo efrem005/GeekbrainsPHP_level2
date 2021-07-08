@@ -1,6 +1,7 @@
 <?php
 
-namespace app\models\orders;
+namespace app\models\entities\orders;
+
 use app\models\Model;
 
 
@@ -37,10 +38,4 @@ class Orders extends Model
         $this->session_id = $session_id;
         $this->status = $status;
     }
-
-    protected static function getTableName(): string
-    {
-        return 'orders';
-    }
-
 }

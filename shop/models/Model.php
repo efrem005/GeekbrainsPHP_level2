@@ -5,7 +5,7 @@ namespace app\models;
 use app\interfaces\IModel;
 
 
-abstract class Model extends DBModel
+abstract class Model
 {
 
     protected $props = [];

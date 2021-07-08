@@ -6,7 +6,8 @@ namespace app\controller;
 
 use app\engine\Request;
 use app\engine\Session;
-use app\models\orders\Orders;
+use app\models\entities\orders\Orders;
+use app\models\repositories\orders\OrdersRepositories;
 
 class OrdersController extends Controller
 {
@@ -16,7 +17,8 @@ class OrdersController extends Controller
         $phone = (new Request())->getParams()['phone'];
         $summ = (new Request())->getParams()['summ'];
         $session_id = (new Session())->getId();
-        (new Orders($user, $phone, $summ, $session_id, 'в обработке'))->save();
+        $order = new Orders($user, $phone, $summ, $session_id, 'в обработке');
+        (new OrdersRepositories())->save($order);
         (new Session())->regenerate();
         header("Location: /product");
         die();
@@ -26,9 +28,9 @@ class OrdersController extends Controller
     {
         $id = (new Request())->getParams()['id'];
         $status = (new Request())->getParams()['status'];
-        $order = Orders::getOne($id);
+        $order = (new OrdersRepositories())->getOne($id);
         $order->status = $status;
-        $order->save();
+        (new OrdersRepositories())->save($order);
         header("Location: " . (new Request())->getHttpReferer());
         die();
     }
