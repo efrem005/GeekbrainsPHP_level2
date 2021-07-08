@@ -4,34 +4,33 @@
 namespace app\controller;
 
 
-use app\engine\Request;
-use app\engine\Session;
+use app\engine\App;
 use app\models\entities\orders\Orders;
-use app\models\repositories\orders\OrdersRepositories;
+
 
 class OrdersController extends Controller
 {
     public function actionBuy()
     {
-        $user = (new Request())->getParams()['name'];
-        $phone = (new Request())->getParams()['phone'];
-        $summ = (new Request())->getParams()['summ'];
-        $session_id = (new Session())->getId();
+        $user = App::call()->request->getParams()['name'];
+        $phone = App::call()->request->getParams()['phone'];
+        $summ = App::call()->request->getParams()['summ'];
+        $session_id = App::call()->session->getId();
         $order = new Orders($user, $phone, $summ, $session_id, 'в обработке');
-        (new OrdersRepositories())->save($order);
-        (new Session())->regenerate();
+        App::call()->ordersRepositories->save($order);
+        App::call()->session->regenerate();
         header("Location: /product");
         die();
     }
 
     public function actionStatus()
     {
-        $id = (new Request())->getParams()['id'];
-        $status = (new Request())->getParams()['status'];
-        $order = (new OrdersRepositories())->getOne($id);
+        $id = App::call()->request->getParams()['id'];
+        $status = App::call()->request->getParams()['status'];
+        $order = App::call()->ordersRepositories->getOne($id);
         $order->status = $status;
-        (new OrdersRepositories())->save($order);
-        header("Location: " . (new Request())->getHttpReferer());
+        App::call()->ordersRepositories->save($order);
+        header("Location: " . App::call()->request->getHttpReferer());
         die();
     }
 }

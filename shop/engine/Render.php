@@ -12,7 +12,7 @@ class Render implements IRender
     {
         ob_start();
         extract($params);
-        $templatePath = ROOT . VIEWS_DIR . $template . '.php';
+        $templatePath = App::call()->config['VIEWS_DIR'] . $template . '.php';
         if (file_exists($templatePath)) {
             include $templatePath;
             return ob_get_clean();

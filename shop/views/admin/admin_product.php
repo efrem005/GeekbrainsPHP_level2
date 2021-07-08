@@ -23,7 +23,9 @@
                 </button>
             </td>
             <td class="text-start">
-                <a class="btn btn-outline-danger btn-sm" data-id="<?= $item->id ?>">Удалить</a>
+                <button type="button" class="btn btn-outline-danger mx-2 btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleProductDelete<?= $item->id ?>">Удалить
+                </button>
             </td>
         </tr>
     <? endforeach; ?>
@@ -67,6 +69,32 @@
                         <div>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">закрыть</button>
                             <button type="submit" class="btn btn-primary">изменить</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="exampleProductDelete<?= $item->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><?= $item->title ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/deleteProduct" method="post">
+                    <label>
+                        <input type="number" name="id" value="<?= $item->id ?>" hidden>
+                    </label>
+                    <div class="modal-body">
+                        <div class="fs-2 text-center">Точно хотите удалить <?= $item->title ?> ?</div>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ОТМЕНА</button>
+                            <button type="submit" class="btn btn-primary">ДА</button>
                         </div>
                 </form>
             </div>

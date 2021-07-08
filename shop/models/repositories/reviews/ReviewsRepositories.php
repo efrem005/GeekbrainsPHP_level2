@@ -2,7 +2,7 @@
 
 namespace app\models\repositories\reviews;
 
-use app\engine\Db;
+use app\engine\App;
 use app\models\entities\reviews\Reviews;
 use app\models\Repositories;
 
@@ -24,7 +24,7 @@ class ReviewsRepositories extends Repositories
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} WHERE product_id = :id";
 
-        return Db::getInstance()->queryObjectAll($sql, ['id' => $id], $this->getEntitiesClass());
+        return App::call()->db->queryObjectAll($sql, ['id' => $id], $this->getEntitiesClass());
     }
 
     public function getReviewAll()
@@ -39,7 +39,7 @@ class ReviewsRepositories extends Repositories
                 FROM reviews r
                 JOIN product p on p.id = r.product_id;";
 
-        return Db::getInstance()->queryObjectAll($sql, [], $this->getEntitiesClass());
+        return App::call()->db->queryObjectAll($sql, [], $this->getEntitiesClass());
     }
 
 }

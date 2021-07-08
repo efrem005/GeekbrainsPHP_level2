@@ -2,35 +2,50 @@
 
 namespace app\engine;
 
-use app\interfaces\IDb;
-use app\traits\TSinletone;
+
 use \PDO;
 
-class Db implements IDb
+class Db
 {
-    protected $db = null;
+    protected $config;
+    protected $connection = null;
 
-    use TSinletone;
+    public function __construct(
+        $driver = null,
+        $host = null,
+        $database = null,
+        $charset = "utf8",
+        $login = null,
+        $password = null
+    )
+    {
+        $this->config['driver'] = $driver;
+        $this->config['host'] = $host;
+        $this->config['database'] = $database;
+        $this->config['charset'] = $charset;
+        $this->config['login'] = $login;
+        $this->config['password'] = $password;
+    }
 
     protected function getDb(): PDO
     {
-        if (is_null($this->db)) {
-            $this->db = new PDO($this->getDbConfig(),
-                (new Request())->getEnv('USERNAME'),
-                (new Request())->getEnv('PASSWORD')
+        if (is_null($this->connection)) {
+            $this->connection = new PDO($this->getDbConfig(),
+                $this->config['login'],
+                $this->config['password']
             );
-            $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
-        return $this->db;
+        return $this->connection;
     }
 
     protected function getDbConfig(): string
     {
         return sprintf('%s:host=%s;dbname=%s;charset=%s',
-            (new Request())->getEnv('DRIVER'),
-            (new Request())->getEnv('HOST'),
-            (new Request())->getEnv('DB'),
-            (new Request())->getEnv('CHARSET')
+            $this->config['driver'],
+            $this->config['host'],
+            $this->config['database'],
+            $this->config['charset']
         );
     }
 
@@ -44,29 +59,21 @@ class Db implements IDb
 
     public function lastInsertId()
     {
-        return $this->db->lastInsertId();
+        return $this->connection->lastInsertId();
     }
 
     public function queryObject($sql, $params, $class)
     {
         $sql = $this->query($sql, $params);
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
-        $obj = $sql->fetch();
-        if(!$obj){
-            throw new \Exception('Такого продукта нет', 404);
-        };
-        return $obj;
+        return $sql->fetch();
     }
 
     public function queryObjectAll($sql, $params, $class)
     {
         $sql = $this->query($sql, $params);
         $sql->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
-        $obj = $sql->fetchAll();
-        if(!$obj){
-            throw new \Exception('Такого продукта нет', 404);
-        };
-        return $obj;
+        return $sql->fetchAll();
     }
 
     public function queryOne($sql, $params)
