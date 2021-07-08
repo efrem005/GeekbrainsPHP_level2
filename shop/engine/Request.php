@@ -4,7 +4,6 @@
 namespace app\engine;
 
 
-use app\models\repositories\user\UsersRepositories;
 use Dotenv\Dotenv;
 
 class Request
@@ -33,7 +32,7 @@ class Request
         $this->controllerName = $url[1];
         $this->actionName = $url[2];
 
-        $this->dotenv = Dotenv::createImmutable(ROOT . "/data/")->load();
+//        $this->dotenv = Dotenv::createImmutable(App::call()->config['root'] . "/data/")->load();
 
         $this->params = $_REQUEST;
 
@@ -55,7 +54,7 @@ class Request
     {   // если есть обрашение к контроллеру adminController то мы проверяем Admin или нет
         // правельно здесь это делать или надо в другом месте
         if (strtolower($this->controllerName) == 'admin') {
-            if ((new UsersRepositories())->isAdmin()) {
+            if (App::call()->usersRepositories->isAdmin()) {
                 return $this->controllerName;
             }
             header("Location: /error/admin");

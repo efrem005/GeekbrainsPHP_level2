@@ -2,34 +2,36 @@
 
 namespace app\controller;
 
-use app\engine\Request;
+
+use app\engine\App;
 use app\models\entities\reviews\Reviews;
-use app\models\repositories\reviews\ReviewsRepositories;
 
 
 class ReviewsController extends Controller
 {
     protected function actionIndex()
     {
-        $reviews = (new ReviewsRepositories())->getReviewAll();
+        $reviews = App::call()->reviewsRepositories->getReviewAll();
         echo $this->render('reviews', ['reviews' => $reviews]);
     }
 
     protected function actionDelete()
     {
-        $id = (new Request())->getParams()['id'];
-        $review = (new ReviewsRepositories())->getOne($id);
-        $review->delete();
-        header("Location: " . (new Request())->getHttpReferer());
+        $id = App::call()->request->getParams()['id'];
+        $review = App::call()->reviewsRepositories->getOne($id);
+        App::call()->reviewsRepositories->delete($review);
+        header("Location: " . App::call()->request->getHttpReferer());
+        die();
     }
 
     protected function actionAdd()
     {
-        $user = (new Request())->getParams()['user'];
-        $text = (new Request())->getParams()['text'];
-        $product_id = (new Request())->getParams()['id'];
+        $user = App::call()->request->getParams()['user'];
+        $text = App::call()->request->getParams()['text'];
+        $product_id = App::call()->request->getParams()['id'];
         $review = new Reviews($user, $text, $product_id);
-        (new ReviewsRepositories())->save($review);
-        header("Location: " . (new Request())->getHttpReferer());
+        App::call()->reviewsRepositories->save($review);
+        header("Location: " . App::call()->request->getHttpReferer());
+        die();
     }
 }

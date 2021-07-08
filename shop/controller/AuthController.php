@@ -3,27 +3,25 @@
 namespace app\controller;
 
 
-use app\engine\Request;
-use app\engine\Session;
+use app\engine\App;
 use app\models\entities\user\Users;
-use app\models\repositories\user\UsersRepositories;
 
 class AuthController extends Controller
 {
     public function actionLogin()
     {
-        $login = (new Request())->getParams()['login'];
-        $pass = (new Request())->getParams()['pass'];
+        $login = App::call()->request->getParams()['login'];
+        $pass = App::call()->request->getParams()['pass'];
 
-        if ((new UsersRepositories())->getAuth($login, $pass)){
-            if (isset((new Request())->getParams()['save'])){
-                $user = (new UsersRepositories())->getWhere('login', $login);
+        if (App::call()->usersRepositories->getAuth($login, $pass)){
+            if (isset(App::call()->request->getParams()['save'])){
                 $hash = uniqid(rand(), true);
+                $user = App::call()->usersRepositories->getWhere('login', $login);
                 $user->hash = $hash;
-                $user->save();
+                App::call()->usersRepositories->save($user);
                 setcookie("hash", $hash, time() + 36000, '/');
             }
-            header("Location:" . (new Request())->getHttpReferer());
+            header("Location:" . App::call()->request->getHttpReferer());
             die();
         } else {
             die("Ошибка");
@@ -32,13 +30,13 @@ class AuthController extends Controller
 
     public function actionAdd()
     {
-        if ((new Request())->getMethod() == 'POST'){
+        if (App::call()->request->getMethod() == 'POST'){
             $user = new Users(
-                (new Request())->getParams()['login'],
-                password_hash((new Request())->getParams()['pass'], PASSWORD_DEFAULT),
-                (new Request())->getParams()['fastName']
+                App::call()->request->getParams()['login'],
+                password_hash(App::call()->request->getParams()['pass'], PASSWORD_DEFAULT),
+                App::call()->request->getParams()['fastName']
             );
-            (new UsersRepositories())->save($user);
+            App::call()->usersRepositories->save($user);
             header("Location: /");
             die();
         }
@@ -46,12 +44,12 @@ class AuthController extends Controller
 
     public function actionLogout()
     {
-        header("Location:" . (new Request())->getHttpReferer());
-        if((new UsersRepositories())->isAdmin()){
+        header("Location:" . App::call()->request->getHttpReferer());
+        if(App::call()->usersRepositories->isAdmin()){
             header("Location: /");
         }
-        (new Session())->regenerate();
-        (new Session())->destroy();
+        App::call()->session->regenerate();
+        App::call()->session->destroy();
         setcookie("hash", "", time() - 36000, '/');
         die();
     }

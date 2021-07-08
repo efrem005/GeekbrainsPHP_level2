@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use app\interfaces\IModel;
-
 
 abstract class Model
 {

@@ -3,9 +3,7 @@
 namespace app\controller;
 
 
-use app\engine\Request;
-use app\models\repositories\product\ProductRepositories;
-use app\models\repositories\reviews\ReviewsRepositories;
+use app\engine\App;
 
 
 class ProductController extends Controller
@@ -15,9 +13,9 @@ class ProductController extends Controller
 
     protected function actionIndex()
     {
-        $count = (int)(new ProductRepositories())->getCountAll();
+        $count = (int)App::call()->productRepositories->getCountAll();
         $pagination = ceil($count/$this->offSet);
-        $catalog = (new ProductRepositories())->getProductPage($this->page, $this->offSet);
+        $catalog = App::call()->productRepositories->getProductPage($this->page, $this->offSet);
         echo $this->render('catalog', [
             'catalog' => $catalog,
             'pagination' => $pagination,
@@ -28,10 +26,10 @@ class ProductController extends Controller
 
     public function actionPage()
     {
-        $this->page = (new Request())->getParams()['page'];
-        $count = (int)(new ProductRepositories())->getCountAll();
+        $this->page = App::call()->request->getParams()['page'];
+        $count = (int)App::call()->productRepositories->getCountAll();
         $pagination = ceil($count/$this->offSet);
-        $catalog = (new ProductRepositories())->getProductPage($this->page, $this->offSet);
+        $catalog = App::call()->productRepositories->getProductPage($this->page, $this->offSet);
         echo $this->render('catalog', [
             'catalog' => $catalog,
             'pagination' => $pagination,
@@ -42,10 +40,10 @@ class ProductController extends Controller
 
     public function actionLimit()
     {
-        $offset = (new Request())->getParams()['offset'] + 4;
-        $count = (int)(new ProductRepositories())->getCountAll();
+        $offset = App::call()->request->getParams()['offset'] + 4;
+        $count = (int)App::call()->productRepositories->getCountAll();
         $pagination = ceil($count/$this->offSet);
-        $catalog = (new ProductRepositories())->getProductLimit($offset);
+        $catalog = App::call()->productRepositories->getProductLimit($offset);
         echo $this->render('catalog', [
             'catalog' => $catalog,
             'pagination' => $pagination,
@@ -56,9 +54,9 @@ class ProductController extends Controller
 
     public function actionCard()
     {
-        $id = (new Request())->getParams()['id'];
-        $card = (new ProductRepositories())->getOne($id);
-        $review = (new ReviewsRepositories())->getReviewOne($id);
+        $id = App::call()->request->getParams()['id'];
+        $card = App::call()->productRepositories->getOne($id);
+        $review = App::call()->reviewsRepositories->getReviewOne($id);
         echo $this->render('card', [
             'item' => $card,
             'review' => $review

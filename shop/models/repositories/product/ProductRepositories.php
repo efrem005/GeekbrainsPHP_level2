@@ -2,7 +2,7 @@
 
 namespace app\models\repositories\product;
 
-use app\engine\Db;
+use app\engine\App;
 use app\models\entities\product\Product;
 use app\models\Repositories;
 
@@ -23,14 +23,14 @@ class ProductRepositories extends Repositories
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet} OFFSET " . $id * $offSet;
-        return DB::getInstance()->queryObjectAll($sql, [], $this->getEntitiesClass());
+        return App::call()->db->queryObjectAll($sql, [], $this->getEntitiesClass());
     }
 
     public function getProductLimit($offSet)
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} ORDER BY id LIMIT {$offSet}";
-        return DB::getInstance()->queryObjectAll($sql, [], $this->getEntitiesClass());
+        return App::call()->db->queryObjectAll($sql, [], $this->getEntitiesClass());
     }
 
 }

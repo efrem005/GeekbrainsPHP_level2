@@ -2,11 +2,9 @@
 
 namespace app\controller;
 
-use app\engine\Session;
+use app\engine\App;
 use app\interfaces\IController;
 use app\interfaces\IRender;
-use app\models\repositories\backet\BasketRepositories;
-use app\models\repositories\user\UsersRepositories;
 
 
 abstract class Controller implements IController
@@ -44,11 +42,11 @@ abstract class Controller implements IController
         if ($this->useLayout) {
             return $this->render->renderTemplate("layouts/{$this->layout}", [
                 'menu' => $this->render->renderTemplate('menu', [
-                    'isAuth' => (new UsersRepositories())->isAuth(),
-                    'user' => (new UsersRepositories())->getName(),
-                    'fast_name' => (new UsersRepositories())->getFastName(),
-                    'count' => (new BasketRepositories())->getCountWhere('session_id', (new Session())->getId()),
-                    'isAdmin' => (new UsersRepositories())->isAdmin()
+                    'isAuth' => App::call()->usersRepositories->isAuth(),
+                    'user' => App::call()->usersRepositories->getName(),
+                    'fast_name' => App::call()->usersRepositories->getFastName(),
+                    'count' => App::call()->basketRepositories->getCountWhere('session_id', App::call()->session->getId()),
+                    'isAdmin' => App::call()->usersRepositories->isAdmin()
                 ]),
                 'content' => $this->render->renderTemplate($template, $params)
             ]);
